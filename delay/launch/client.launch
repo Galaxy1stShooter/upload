@@ -1,0 +1,41 @@
+<launch>
+
+    <arg name="thename" default="m100"/><!--无人机名称（每台无人机必须不相同）-->
+    <arg name="axis" default="2"/><!--坐标系：1为全局自然坐标系，2为局部实验坐标系-->
+    <arg name="name" default="uav0"/>
+    <arg name="index" default="0"/>
+    
+    <node
+    pkg = "delay"
+    type = "subscribe"
+    name = "$(arg name)_subscribe_node"
+    output = "screen"
+    respawn = "true">
+    <param name="uav_index" type="int" value="$(arg index)"/>
+    <param name="uav_name" type="string" value="$(arg name)"/>
+    <param name="axis_id" type="int" value="$(arg axis)"/>
+    </node>
+
+    <node
+    pkg = "delay"
+    type = "delayClient"
+    name = "$(arg name)_client_node"
+    output = "screen"
+    respawn = "true">
+    <param name="uav_index" type="int" value="$(arg index)"/>
+    <param name="uav_name" type="string" value="$(arg name)"/>
+    <param name="axis_id" type="int" value="$(arg axis)"/>
+    </node>
+
+    <node
+    pkg = "delay"
+    type = "statusUpdate"
+    name = "$(arg name)_statusUpdate_node"
+    output = "screen"
+    respawn = "true">
+    <param name="uav_index" type="int" value="$(arg index)"/>
+    <param name="uav_name" type="string" value="$(arg name)"/>
+    <param name="axis_id" type="int" value="$(arg axis)"/>
+    </node>
+
+</launch>
